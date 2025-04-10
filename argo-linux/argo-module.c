@@ -3214,7 +3214,8 @@ argo_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
             struct argo_ring_id ring_id;
             pr_debug("Start: GETSOCKNAME=%x pid=%d\n", cmd, current->pid);
 
-            if ( !access_ok_wrapper (VERIFY_WRITE, arg, sizeof(struct argo_ring_id)) )
+            if ( !access_ok_wrapper (VERIFY_WRITE, (void __user *)arg,
+                                     sizeof(struct argo_ring_id)) )
             {
                 rc = -EFAULT;
                 break;
@@ -3235,7 +3236,8 @@ argo_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
             int sock_type;
             pr_debug("Start: GETSOCKTYPE=%x pid=%d\n", cmd, current->pid);
 
-            if ( !access_ok_wrapper (VERIFY_WRITE, arg, sizeof(int)) )
+            if ( !access_ok_wrapper (VERIFY_WRITE, (int __user *)arg,
+                                     sizeof(int)) )
             {
                 rc = -EFAULT;
                 break;
@@ -3255,7 +3257,8 @@ argo_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
             xen_argo_addr_t addr;
             pr_debug("Start: GETPEERNAME=%x pid=%d\n", cmd, current->pid);
 
-            if ( !access_ok_wrapper (VERIFY_WRITE, arg, sizeof(xen_argo_addr_t)) )
+            if ( !access_ok_wrapper (VERIFY_WRITE, (void __user *)arg,
+                                     sizeof(xen_argo_addr_t)) )
             {
                 rc = -EFAULT;
                 break;
@@ -3307,7 +3310,8 @@ argo_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
         {
             pr_debug("Start: GETCONNECTERR=%x pid=%d\n", cmd, current->pid);
 
-            if ( !access_ok_wrapper(VERIFY_WRITE, arg, sizeof(int)) )
+            if ( !access_ok_wrapper(VERIFY_WRITE, (int __user *)arg,
+                                    sizeof(int)) )
             {
                 rc = -EFAULT;
                 break;
@@ -3334,7 +3338,8 @@ argo_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
             xen_argo_addr_t addr;
             pr_debug("Start: ACCEPT=%x pid=%d\n", cmd, current->pid);
 
-            if ( !access_ok_wrapper(VERIFY_WRITE, arg, sizeof(xen_argo_addr_t)) )
+            if ( !access_ok_wrapper(VERIFY_WRITE, (void __user *)arg,
+                                    sizeof(xen_argo_addr_t)) )
             {
                 rc = -EFAULT;
                 break;
